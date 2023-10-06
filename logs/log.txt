@@ -1,0 +1,64 @@
+2023-09-28 15:00:00,221 - INFO - LINKUSDT:SHORT:(open=7.749, high=7.87, low=7.731, close=7.775, timeframe="4h")
+2023-09-28 15:00:00,308 - INFO - STMXUSDT:LONG:(open=0.00712, high=0.007147, low=0.006969, close=0.007079, timeframe="4h")
+2023-09-28 15:00:00,397 - INFO - STORJUSDT:LONG:(open=0.3996, high=0.4019, low=0.3915, close=0.3999, timeframe="4h")
+2023-09-28 15:00:00,439 - INFO - TRBUSDT:LONG:(open=51.86, high=51.93, low=46.55, close=50.31, timeframe="4h")
+2023-09-28 15:00:00,558 - INFO - IDEXUSDT:SHORT:(open=0.04955, high=0.05036, low=0.04905, close=0.0492, timeframe="4h")
+2023-09-28 15:00:00,567 - INFO - MINAUSDT:SHORT:(open=0.375, high=0.381, low=0.374, close=0.374, timeframe="4h")
+2023-09-28 15:00:00,606 - INFO - AGLDUSDT:LONG:(open=0.819, high=0.825, low=0.796, close=0.816, timeframe="4h")
+2023-09-28 15:00:00,614 - INFO - APEUSDT:LONG:(open=1.149, high=1.156, low=1.134, close=1.152, timeframe="4h")
+2023-09-28 15:00:00,623 - INFO - HIGHUSDT:LONG:(open=1.239, high=1.245, low=1.215, close=1.237, timeframe="4h")
+2023-09-28 15:00:05,933 - INFO -
+
+Pair: LINKUSDT
+Timeframe: *4h*
+Direction: Short
+Size:1 to 5
+Vol: x 0.1
+
+Pair: STMXUSDT
+Timeframe: *4h*
+Direction: Long
+Size:1 to 4
+Vol: x 0.0
+
+Pair: STORJUSDT
+Timeframe: *4h*
+Direction: Long
+Size:1 to 34.67
+Vol: x 0.0
+
+Pair: TRBUSDT
+Timeframe: *4h*
+Direction: Long
+Size:1 to 3
+Vol: x 0.1
+
+Pair: IDEXUSDT
+Timeframe: *4h*
+Direction: Short
+Size:1 to 4
+Vol: x 0.4
+
+Pair: MINAUSDT
+Timeframe: *4h*
+Direction: Short
+Size:1 to 7
+Vol: x 0.9
+
+Pair: AGLDUSDT
+Timeframe: *4h*
+Direction: Long
+Size:1 to 10
+Vol: x 0.2
+
+Pair: APEUSDT
+Timeframe: *4h*
+Direction: Long
+Size:1 to 7
+Vol: x 0.2
+
+Pair: HIGHUSDT
+Timeframe: *4h*
+Direction: Long
+Size:1 to 15.0
+Vol: x 0.7

@@ -1,0 +1,6 @@
+{
+  "telegram_token": "5085987089:AAFOaNFSWusfA9hDI-b0UYIirrWRK3VvhAg",
+  "telegram_channel_id": -1001782999630,
+  "timeframes": ["5m"],
+  "avg_volumes_file": "data/avg_volumes_debug.json"
+}

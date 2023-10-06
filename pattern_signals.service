@@ -1,0 +1,15 @@
+[Unit]
+Description=Telegram bot '-hammer_signal_bot'
+After=syslog.target
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/usr/local/bin/bot/hammer_signal_bot
+ExecStart=/usr/bin/python3 /usr/local/bin/bot/hammer_signal_bot/main.py
+RestartSec=10
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
