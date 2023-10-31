@@ -4,7 +4,7 @@ import os
 import src.logger as custom_logging
 from dotenv import load_dotenv
 
-DEBUG = False
+DEBUG = True
 common_params = dict()
 
 
@@ -32,7 +32,11 @@ else:
 
 BINANCE_API_KEY = os.getenv('BINANCE_API_KEY')  # common_params['API_Key']
 BINANCE_Secret_KEY = os.getenv('BINANCE_SECRET_KEY')#common_params['Secret_Key']
-TLG_TOKEN = common_params['telegram_token']
-TLG_CHANNEL_ID = common_params['telegram_channel_id']
+HAMMER_TLG_TOKEN = common_params['hammer_telegram_token']
+HAMMER_TLG_CHANNEL_ID = common_params['hammer_telegram_channel_id']
+BIG_CANDLE_TLG_TOKEN = common_params['big_candle_telegram_token']
+BIG_CANDLE_TLG_CHANNEL_ID = common_params['big_candle_telegram_channel_id']
 TIMEFRAMES = common_params['timeframes']
-AVG_VOLUMES_FILE = common_params['avg_volumes_file']
+FUT_AVG_VOLUMES_FILE = common_params['fut_avg_volumes_file']
+SPOT_AVG_VOLUMES_FILE = common_params['spot_avg_volumes_file']
+CANDLE_BODY_SIZE = common_params['candle_size']

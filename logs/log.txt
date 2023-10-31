@@ -62,3 +62,5 @@ Timeframe: *4h*
 Direction: Long
 Size:1 to 15.0
 Vol: x 0.7
+
+

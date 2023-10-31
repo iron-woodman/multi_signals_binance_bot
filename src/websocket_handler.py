@@ -1,6 +1,7 @@
 ## -*- coding: utf-8 -*-
 from binance import ThreadedWebsocketManager, enums
 from time import sleep
+import datetime
 
 # from telegram_api import add_signal_to_list
 import src.logger as custom_logging
@@ -53,14 +54,17 @@ class QueueManager():
                 close = float(candle['c'])
                 volume = float(candle['v'])
                 timeframe = candle['i']
-                candle_time = candle['t']
+                candle_time = candle['T']   # close candle time
+                candle_time = datetime.datetime.fromtimestamp(candle_time/1000).strftime('%Y-%m-%d %H:%M:%S')
 
                 if is_candle_closed:
-                    store_candle(symbol, open_, high, low, close, volume, timeframe, self.isSPOT)
+                    store_candle(candle_time, symbol, open_, high, low, close, volume, timeframe, self.isSPOT)
 
         except Exception as e:
             print("on_message exception:", e)
             custom_logging.error("on_message exception:", e)
+            custom_logging.error(
+                f"error candle:{candle_time}:{symbol}:{open_}:{high}:{low}:{close}:{volume},{timeframe}:{self.isSPOT}")
         # print(message)
 
         if False:

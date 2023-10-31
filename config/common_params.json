@@ -1,6 +1,11 @@
 {
-  "telegram_token": "5085987089:AAFOaNFSWusfA9hDI-b0UYIirrWRK3VvhAg",
-  "telegram_channel_id": -1001977125484,
+  "hammer_telegram_token": "5085987089:AAFOaNFSWusfA9hDI-b0UYIirrWRK3VvhAg",
+  "hammer_telegram_channel_id": -1001977125484,
+  "big_candle_telegram_token": "5085987089:AAFOaNFSWusfA9hDI-b0UYIirrWRK3VvhAg",
+  "big_candle_telegram_channel_id": -1001971369819,
   "timeframes": ["4h", "1d"],
-  "avg_volumes_file": "data/avg_volumes.json"
+  "fut_avg_volumes_file": "data/fut_avg_volumes.json",
+  "spot_avg_volumes_file": "data/spot_avg_volumes.json",
+  "candle_size": 5.0
+
 }

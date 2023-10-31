@@ -35,5 +35,5 @@ def load_spot_list():
     return coins
 
 
-futures_list = load_futures_list()
-spot_list = load_spot_list()
+# futures_list = load_futures_list()
+# spot_list = load_spot_list()
