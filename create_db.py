@@ -1,5 +1,5 @@
 import mysql.connector
-
+from src.config_handler import TIMEFRAMES
 
 def create_table(table_name):
   # Connect to the server using a context manager
@@ -43,8 +43,7 @@ def create_database(dbname):
 
 # Call the function to create the table
 create_database("crypto_data")
-create_table("spot_5m")
-create_table("fut_5m")
-create_table("spot_4h")
-create_table("fut_4h")
+for timeframe in TIMEFRAMES:
+  create_table(f"spot_{timeframe}")
+  create_table(f"fut_{timeframe}")
 

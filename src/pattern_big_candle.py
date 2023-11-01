@@ -2,14 +2,14 @@ import json
 from src.telegram_message import BigCandleTLGMessage
 import src.logger as custom_logging
 from src.pattern_base import CandlePattern
-from config_handler import CANDLE_BODY_SIZE
+from src.config_handler import CANDLE_BODY_SIZE
 
 
 class BigCandlePattern(CandlePattern):
     def __init__(self):
         pass
-    def check_bar_for_signal(self, symbol, open_, high, low, close, volume, timeframe, avg_volume):
-        super().check_bar_for_signal(symbol, open_, high, low, close, volume, timeframe, avg_volume)
+    def check_bar_for_signal(self, symbol, open_, high, low, close, volume, timeframe, candle_time,  avg_volume):
+        super().check_bar_for_signal(symbol, open_, high, low, close, volume, timeframe, candle_time, avg_volume)
         signal = ''
         bar_body_size = abs(open_ - close)
         bar_color = 'GREEN'
@@ -17,7 +17,7 @@ class BigCandlePattern(CandlePattern):
             bar_color = 'RED'
         price_move_size_procent = round(bar_body_size * 100 / open_, 2)
         if price_move_size_procent < CANDLE_BODY_SIZE:
-            return
+            return ''
         volume_ratio = self.get_volume_ratio(volume, timeframe, symbol, avg_volume)
         custom_logging.info(
             f"{symbol}:{timeframe}:{bar_color}:PRICE_MOVE{price_move_size_procent}%:Vol. {volume_ratio}")

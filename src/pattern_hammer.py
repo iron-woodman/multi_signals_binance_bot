@@ -8,7 +8,7 @@ class HammerPattern(CandlePattern):
     def __init__(self):
         pass
     def check_bar_for_signal(self, symbol, open_, high, low, close, volume, timeframe, candle_time, avg_volume):
-        super().check_bar_for_signal(symbol, open_, high, low, close, volume, timeframe, avg_volume)
+        super().check_bar_for_signal(symbol, open_, high, low, close, volume, timeframe, candle_time, avg_volume)
         signal = ''
         try:
             hummer_direction = self.detect_hammer_patterns(open_, high, low, close, timeframe)

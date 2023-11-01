@@ -29,6 +29,7 @@ class HummerTLGMessage:
         except Exception as e:
             print(e)
             custom_logging.error(f"TLGMessage.generate_message error: {e}.")
+            return ''
 
 
 

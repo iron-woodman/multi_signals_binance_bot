@@ -1,11 +1,10 @@
-from binance.enums import HistoricalKlinesType
-from binance import Client
-from src.config_handler import BINANCE_API_KEY, BINANCE_Secret_KEY
+spot = ['1', '2', '3']
+spot=[]
+fut = ['a', 'b', 'c']
+fut = []
 
 
-client=Client(BINANCE_API_KEY, BINANCE_Secret_KEY)
-fut_candles = client.get_historical_klines('BNBUSDT', Client.KLINE_INTERVAL_2HOUR, "1 day ago UTC",klines_type=HistoricalKlinesType.FUTURES)
-spot_candles = client.get_historical_klines('BNBUSDT', Client.KLINE_INTERVAL_2HOUR, "1 day ago UTC",klines_type=HistoricalKlinesType.SPOT)
+# if len(spot) > 0 or len(fut) > 0:
 
-print("fut:\n",fut_candles)
-print("spot:\n",spot_candles)
+common = "\n".join(spot) + "\n"+"\n".join(fut)
+print(common)
