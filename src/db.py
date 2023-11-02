@@ -13,7 +13,7 @@ def store_candle(candle_time, symbol, open_, high, low, close, volume, timeframe
     with mysql.connector.connect(
             host="localhost",
             user="bot",
-            password="mybot",
+            password="mybot123456",
             database="crypto_data"
     ) as cnx:
         insert_query =\
@@ -29,7 +29,7 @@ def get_candles(last_id, tablename):
         connection = mysql.connector.connect(
             host="localhost",
             user="bot",
-            password="mybot",
+            password="mybot123456",
             database="crypto_data"
         )
 

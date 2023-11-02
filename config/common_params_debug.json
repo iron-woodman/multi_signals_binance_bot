@@ -3,9 +3,9 @@
   "hammer_telegram_channel_id": -1001782999630,
   "big_candle_telegram_token": "5085987089:AAFOaNFSWusfA9hDI-b0UYIirrWRK3VvhAg",
   "big_candle_telegram_channel_id": -1001782999630,
-  "timeframes": ["5m"],
+  "timeframes": ["4h", "1d"],
   "fut_avg_volumes_file": "data/fut_avg_volumes.json",
   "spot_avg_volumes_file": "data/spot_avg_volumes.json",
-  "candle_size": 0.5
+  "candle_size": 5.0
 
 }

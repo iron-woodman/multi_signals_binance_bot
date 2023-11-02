@@ -6,7 +6,7 @@ def create_table(table_name):
   with mysql.connector.connect(
           host="localhost",
           user="bot",
-          password="mybot",
+          password="mybot123456",
           database="crypto_data"
   ) as cnx:
     # Create the table
@@ -33,7 +33,7 @@ def create_database(dbname):
   cnx = mysql.connector.connect(
     host="localhost",
     user="bot",
-    password="mybot"
+    password="mybot123456"
   )
   # Create the database
   create_db_query = "CREATE DATABASE IF NOT EXISTS crypto_data"

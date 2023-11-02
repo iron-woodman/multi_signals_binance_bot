@@ -204,17 +204,20 @@ def main():
     futures_list = load_futures_list()
     spot_list = load_spot_list()
 
-    if os.path.isfile(FUT_AVG_VOLUMES_FILE) is False:  # avg volumes file don't exists
-        # get avg volumes for every timeframe
-        update_avg_volumes(TIMEFRAMES)
-    elif os.path.getsize(FUT_AVG_VOLUMES_FILE) == 0:
-        update_avg_volumes(TIMEFRAMES)
+    # if os.path.isfile(FUT_AVG_VOLUMES_FILE) is False:  # avg volumes file don't exists
+    #     # get avg volumes for every timeframe
+    #     update_avg_volumes(TIMEFRAMES)
+    # elif os.path.getsize(FUT_AVG_VOLUMES_FILE) == 0:
+    #     update_avg_volumes(TIMEFRAMES)
+    #
+    # if os.path.isfile(SPOT_AVG_VOLUMES_FILE) is False:  # avg volumes file don't exists
+    #     # get avg volumes for every timeframe
+    #     update_avg_volumes(TIMEFRAMES, True)
+    # elif os.path.getsize(SPOT_AVG_VOLUMES_FILE) == 0:
+    #     update_avg_volumes(TIMEFRAMES, True)
 
-    if os.path.isfile(SPOT_AVG_VOLUMES_FILE) is False:  # avg volumes file don't exists
-        # get avg volumes for every timeframe
-        update_avg_volumes(TIMEFRAMES, True)
-    elif os.path.getsize(SPOT_AVG_VOLUMES_FILE) == 0:
-        update_avg_volumes(TIMEFRAMES, True)
+    update_avg_volumes(TIMEFRAMES)
+    update_avg_volumes(TIMEFRAMES, True)
 
 
 
