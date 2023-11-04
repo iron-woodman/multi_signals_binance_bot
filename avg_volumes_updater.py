@@ -7,16 +7,17 @@ from binance import Client
 from binance.enums import HistoricalKlinesType
 from datetime import datetime
 from src.binance_api import load_futures_list, load_spot_list
-from src.config_handler import TIMEFRAMES, FUT_AVG_VOLUMES_FILE, SPOT_AVG_VOLUMES_FILE, BINANCE_API_KEY, BINANCE_Secret_KEY
+from src.config_handler import TIMEFRAMES, FUT_AVG_VOLUMES_FILE, SPOT_AVG_VOLUMES_FILE, BINANCE_API_KEY, \
+    BINANCE_Secret_KEY
 import src.logger as custom_logging
 
+THREAD_CNT = 2  # 3 потока на ядро
+PAUSE = 5  # пауза между запросами истории
+DEBUG = False  # флаг вывода отладочных сообщений во время разработки
 
-THREAD_CNT = 2 # 3 потока на ядро
-PAUSE = 5 # пауза между запросами истории
-DEBUG = False# флаг вывода отладочных сообщений во время разработки
+spot_list = []
+futures_list = []
 
-spot_list=[]
-futures_list=[]
 
 def GetVolumeListAndAvg(bars):
     _ = []
@@ -25,7 +26,7 @@ def GetVolumeListAndAvg(bars):
         val = float(bar[5])
         _.append(val)
         avg += val
-    avg = avg/len(bars)
+    avg = avg / len(bars)
     return avg
 
 
@@ -44,7 +45,7 @@ def load_history_bars(task):
 
     try:
         result['id'] = pair
-        for timeframe in all_timeframes :
+        for timeframe in all_timeframes:
 
             if timeframe == '1m':
                 st_time = "1 day ago UTC"
@@ -72,12 +73,13 @@ def load_history_bars(task):
             bars = []
             try:
                 if is_spot:
-                    bars = client.get_historical_klines(pair, timeframe, st_time, klines_type=HistoricalKlinesType.FUTURES)
+                    bars = client.get_historical_klines(pair, timeframe, st_time,
+                                                        klines_type=HistoricalKlinesType.FUTURES)
                 else:
                     bars = client.get_historical_klines(pair, timeframe, st_time, klines_type=HistoricalKlinesType.SPOT)
 
             except Exception as e:
-                print(pair,':', e)
+                print(pair, ':', e)
 
             if len(bars) == 0:
                 print(f" 0 bars has been gethered from server. client.get_historical_klines({pair}, {timeframe}, "
@@ -85,7 +87,7 @@ def load_history_bars(task):
                 result[timeframe] = 0
                 continue
             avg = GetVolumeListAndAvg(bars)
-            result[timeframe] = round(avg, 2) #float("{0.2f}".format(avg))
+            result[timeframe] = round(avg, 2)  # float("{0.2f}".format(avg))
         print(result)
         time.sleep(PAUSE)
         return result
@@ -108,7 +110,6 @@ def load_futures_history_bars_end(responce_list):
             print('Futures avg volumes stored to file')
             custom_logging.info('Futures avg volumes stored to file')
 
-
         avg_volumes = load_avg_volume_params(FUT_AVG_VOLUMES_FILE)
     except Exception as e:
         print("Futures avg volumes loading exception:", e)
@@ -128,7 +129,6 @@ def load_spot_history_bars_end(responce_list):
             print('Spot avg volumes stored to file')
             custom_logging.info('Spot avg volumes stored to file')
 
-
         avg_volumes = load_avg_volume_params(SPOT_AVG_VOLUMES_FILE)
     except Exception as e:
         print("Spot avg volumes loading exception:", e)
@@ -136,7 +136,7 @@ def load_spot_history_bars_end(responce_list):
 
 
 def load_avg_volume_params(file):
-    if os.path.isfile(file) is False: # file not exists
+    if os.path.isfile(file) is False:  # file not exists
         print(f'Avg volumes file  "{file}" not exists.')
         return None
     pairs = []
@@ -153,12 +153,11 @@ def load_avg_volume_params(file):
 def update_avg_volumes(timeframes, is_spot=False):
     tasks = []
 
-
     try:
         if is_spot:
             custom_logging.info('Spot AVG volumes update started...')
 
-            for symbol in spot_list:
+            for symbol in futures_list:  # use only spot coins that has futures
                 tasks.append((symbol, BINANCE_API_KEY, BINANCE_Secret_KEY, timeframes, is_spot))
 
             with multiprocessing.Pool(multiprocessing.cpu_count() * THREAD_CNT) as pool:
@@ -178,7 +177,6 @@ def update_avg_volumes(timeframes, is_spot=False):
         print("update_avg_volumes exception:", ex)
         custom_logging.error(f"update_avg_volumes exception: {ex}")
         return
-
 
 
 # def load_futures_list():
@@ -218,7 +216,6 @@ def main():
 
     update_avg_volumes(TIMEFRAMES)
     update_avg_volumes(TIMEFRAMES, True)
-
 
 
 if __name__ == '__main__':
