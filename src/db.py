@@ -1,4 +1,5 @@
 import mysql.connector
+from src.config_handler import MYSQL_USER, MYSQL_PASSWORD
 
 
 def store_candle(candle_time, symbol, open_, high, low, close, volume, timeframe, is_spot=False):
@@ -12,8 +13,8 @@ def store_candle(candle_time, symbol, open_, high, low, close, volume, timeframe
     # Connect to the server using a context manager
     with mysql.connector.connect(
             host="localhost",
-            user="bot",
-            password="mybot123456",
+            user=MYSQL_USER,
+            password=MYSQL_PASSWORD,
             database="crypto_data"
     ) as cnx:
         insert_query =\
@@ -28,8 +29,8 @@ def get_candles(last_id, tablename):
     try:
         connection = mysql.connector.connect(
             host="localhost",
-            user="bot",
-            password="mybot123456",
+            user=MYSQL_USER,
+            password=MYSQL_PASSWORD,
             database="crypto_data"
         )
 

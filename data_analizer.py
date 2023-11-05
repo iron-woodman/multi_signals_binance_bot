@@ -54,66 +54,67 @@ def main():
             hammer_signals = dict()
             big_candle_signals = dict()
             avg_volume = 0
-
-            # process  futures candles
-            if len(fut_records) > 0:
-                for row in fut_records:
-                    if int(row[0]) <= last_fut_rec_id:
-                        continue
-                    last_fut_rec_id = int(row[0])
-                    coin = row[1]
-                    avg_volume = 0
-                    if coin in fut_avg_volumes:
-                        avg_volume = fut_avg_volumes[coin][timeframe]
-                    #     check for hammer pattern
-                    hammer_signal = hammer.check_bar_for_signal(
-                        coin, float(row[3]), float(row[4]), float(row[5]), float(row[6]), float(row[7]), timeframe,
-                        row[2], avg_volume)
-                    if hammer_signal != '':
-                        if coin in hammer_signals:
+            if fut_records is not None:
+                # process  futures candles
+                if len(fut_records) > 0:
+                    for row in fut_records:
+                        if int(row[0]) <= last_fut_rec_id:
                             continue
-                        hammer_signals[coin] = hammer_signal
-                    #     check for hammer pattern
-                    big_candle_signal = big_candle.check_bar_for_signal(
-                        coin, float(row[3]), float(row[4]), float(row[5]), float(row[6]), float(row[7]), timeframe,
-                        row[2], avg_volume)
-                    if big_candle_signal != '':
-                        if coin in big_candle_signals:
-                            continue
-                        big_candle_signals[coin] = big_candle_signal
+                        last_fut_rec_id = int(row[0])
+                        coin = row[1]
+                        avg_volume = 0
+                        if coin in fut_avg_volumes:
+                            avg_volume = fut_avg_volumes[coin][timeframe]
+                        #     check for hammer pattern
+                        hammer_signal = hammer.check_bar_for_signal(
+                            coin, float(row[3]), float(row[4]), float(row[5]), float(row[6]), float(row[7]), timeframe,
+                            row[2], avg_volume)
+                        if hammer_signal != '':
+                            if coin in hammer_signals:
+                                continue
+                            hammer_signals[coin] = '**FUTURES**\n' + hammer_signal
+                        #     check for hammer pattern
+                        big_candle_signal = big_candle.check_bar_for_signal(
+                            coin, float(row[3]), float(row[4]), float(row[5]), float(row[6]), float(row[7]), timeframe,
+                            row[2], avg_volume)
+                        if big_candle_signal != '':
+                            if coin in big_candle_signals:
+                                continue
+                            big_candle_signals[coin] = '**FUTURES**\n' + big_candle_signal
 
-                store_rec_id(f'data/fut_{timeframe}_rec_id.txt', last_fut_rec_id)  # save last rec id to file
+                    store_rec_id(f'data/fut_{timeframe}_rec_id.txt', last_fut_rec_id)  # save last rec id to file
 
-            # process spot candles
-            if len(spot_records) > 0:
-                for row in spot_records:
-                    if int(row[0]) <= last_spot_rec_id:
-                        continue
-                    last_spot_rec_id = int(row[0])
-                    avg_volume = 0
-                    coin = row[1]
-                    if coin in spot_avg_volumes:
-                        avg_volume = spot_avg_volumes[coin][timeframe]
-                    #     check for big_canlde pattern
-                    hammer_signal = hammer.check_bar_for_signal(
-                        coin, float(row[3]), float(row[4]), float(row[5]), float(row[6]), float(row[7]), timeframe,
-                        row[2], avg_volume)
-                    if hammer_signal != '':
-                        if coin in hammer_signals:
+            if spot_records is not None:
+                # process spot candles
+                if len(spot_records) > 0:
+                    for row in spot_records:
+                        if int(row[0]) <= last_spot_rec_id:
                             continue
-                        hammer_signals[coin] = hammer_signal
-                    #     check for big_canlde pattern
-                    big_candle_signal = big_candle.check_bar_for_signal(
-                        coin, float(row[3]), float(row[4]), float(row[5]), float(row[6]), float(row[7]), timeframe,
-                        row[2], avg_volume)
-                    if big_candle_signal != '':
-                        if coin in big_candle_signals:
-                            continue
-                        big_candle_signals[coin] = big_candle_signal
-                print('hummer signals:\n', hammer_signals)
-                print('big candle signals:\n', big_candle_signals)
+                        last_spot_rec_id = int(row[0])
+                        avg_volume = 0
+                        coin = row[1]
+                        if coin in spot_avg_volumes:
+                            avg_volume = spot_avg_volumes[coin][timeframe]
+                        #     check for big_canlde pattern
+                        hammer_signal = hammer.check_bar_for_signal(
+                            coin, float(row[3]), float(row[4]), float(row[5]), float(row[6]), float(row[7]), timeframe,
+                            row[2], avg_volume)
+                        if hammer_signal != '':
+                            if coin in hammer_signals:
+                                continue
+                            hammer_signals[coin] = '**SPOT**\n' + hammer_signal
+                        #     check for big_canlde pattern
+                        big_candle_signal = big_candle.check_bar_for_signal(
+                            coin, float(row[3]), float(row[4]), float(row[5]), float(row[6]), float(row[7]), timeframe,
+                            row[2], avg_volume)
+                        if big_candle_signal != '':
+                            if coin in big_candle_signals:
+                                continue
+                            big_candle_signals[coin] = '**SPOT**\n' + big_candle_signal
+                    print('hummer signals:\n', hammer_signals)
+                    print('big candle signals:\n', big_candle_signals)
 
-                store_rec_id(f'data/spot_{timeframe}_rec_id.txt', last_spot_rec_id)  # save last rec id to file
+                    store_rec_id(f'data/spot_{timeframe}_rec_id.txt', last_spot_rec_id)  # save last rec id to file
 
 
 
@@ -122,11 +123,11 @@ def main():
                 for coin in hammer_signals:
                     hammer_common_signal += hammer_signals[coin] + "\n\n"
                     if len(hammer_common_signal) > 3900:
-                        send_signal(hammer_common_signal, HAMMER_TLG_TOKEN, HAMMER_TLG_CHANNEL_ID)
+                        send_signal(hammer_common_signal.replace('\n\n\n', '\n\n'), HAMMER_TLG_TOKEN, HAMMER_TLG_CHANNEL_ID)
                         hammer_common_signal=''
 
             if len(hammer_common_signal) > 0:
-                send_signal(hammer_common_signal, HAMMER_TLG_TOKEN, HAMMER_TLG_CHANNEL_ID)
+                send_signal(hammer_common_signal.replace('\n\n\n', '\n\n'), HAMMER_TLG_TOKEN, HAMMER_TLG_CHANNEL_ID)
                 hammer_common_signal = ''
 
             big_candle_common_signal = ''
@@ -134,11 +135,11 @@ def main():
                 for coin in big_candle_signals:
                     big_candle_common_signal += big_candle_signals[coin] + "\n\n"
                     if len(big_candle_common_signal) > 3900:
-                        send_signal(big_candle_common_signal, BIG_CANDLE_TLG_TOKEN, BIG_CANDLE_TLG_CHANNEL_ID)
+                        send_signal(big_candle_common_signal.replace('\n\n\n', '\n\n'), BIG_CANDLE_TLG_TOKEN, BIG_CANDLE_TLG_CHANNEL_ID)
                         big_candle_common_signal = ''
 
             if len(big_candle_common_signal) > 0:
-                send_signal(big_candle_common_signal, BIG_CANDLE_TLG_TOKEN, BIG_CANDLE_TLG_CHANNEL_ID)
+                send_signal(big_candle_common_signal.replace('\n\n\n', '\n\n'), BIG_CANDLE_TLG_TOKEN, BIG_CANDLE_TLG_CHANNEL_ID)
 
             time.sleep(10)
 

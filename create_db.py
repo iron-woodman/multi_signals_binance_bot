@@ -1,12 +1,12 @@
 import mysql.connector
-from src.config_handler import TIMEFRAMES
+from src.config_handler import TIMEFRAMES, MYSQL_USER, MYSQL_PASSWORD
 
 def create_table(table_name):
   # Connect to the server using a context manager
   with mysql.connector.connect(
           host="localhost",
-          user="bot",
-          password="mybot123456",
+          user=MYSQL_USER,
+          password=MYSQL_PASSWORD,
           database="crypto_data"
   ) as cnx:
     # Create the table
@@ -32,8 +32,8 @@ def create_database(dbname):
   # Connect to the MySQL server
   cnx = mysql.connector.connect(
     host="localhost",
-    user="bot",
-    password="mybot123456"
+    user=MYSQL_USER,
+    password=MYSQL_PASSWORD
   )
   # Create the database
   create_db_query = "CREATE DATABASE IF NOT EXISTS crypto_data"
