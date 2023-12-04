@@ -94,41 +94,18 @@ class HammerPattern(CandlePattern):
     def get_candle_proportion(self, open_, high, low, close):
         if open_ == close:
             open_ = open_ + open_ * 0.0001
-        proportion = round((high - low) / abs(open_ - close), 2)
-        if 2 < proportion <= 2.5:
-            return "1 to 2"
-        elif 2.5 < proportion <= 3:
-            return "1 to 3"
-        elif 3 < proportion <= 3.5:
-            return "1 to 3"
-        elif 3.5 < proportion <= 4:
-            return "1 to 4"
-        elif 4 < proportion <= 4.5:
-            return "1 to 4"
-        elif 4.5 < proportion <= 5:
-            return "1 to 5"
-        elif 5 < proportion <= 5.5:
-            return "1 to 5"
-        elif 5.5 < proportion <= 6:
-            return "1 to 6"
-        elif 6 < proportion <= 6.5:
-            return "1 to 6"
-        elif 6.5 < proportion <= 7:
-            return "1 to 7"
-        elif 7 < proportion <= 7.5:
-            return "1 to 7"
-        elif 7.5 < proportion <= 8:
-            return "1 to 8"
-        elif 8 < proportion <= 8.5:
-            return "1 to 8"
-        elif 8.5 < proportion <= 9:
-            return "1 to 9"
-        elif 9 < proportion <= 9.5:
-            return "1 to 9"
-        elif 9.5 < proportion <= 10:
-            return "1 to 10"
-        elif 10 < proportion <= 10.5:
-            return "1 to 10"
+        if open_ >= close:
+            up_shadow = high - open_
+            low_shadow = close - low
         else:
-            return f"1 to {proportion}"
+            up_shadow = high - close
+            low_shadow = open_ - low
+
+        if up_shadow >= low_shadow:
+            bigger_shadow = up_shadow
+        else:
+            bigger_shadow = low_shadow
+
+        proportion = round(bigger_shadow / abs(open_ - close), 2)
+        return f"1 to {proportion}"
 
