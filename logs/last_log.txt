@@ -1,0 +1,33 @@
+**FUTURES**
+Pair: BALUSDT
+Timeframe: *4h*
+Direction: Short
+Size:1 to 3
+Vol: x 15.9
+
+**FUTURES**
+Pair: RVNUSDT
+Timeframe: *4h*
+Direction: Short
+Size:1 to 11.4
+Vol: x 13.3
+
+**FUTURES**
+Pair: 1INCHUSDT
+Timeframe: *4h*
+Direction: Short
+Size:1 to 62.5
+Vol: x 18.7
+
+**FUTURES**
+Pair: EGLDUSDT
+Timeframe: *4h*
+Direction: Short
+Size:1 to 4
+Vol: x 31.3
+
+2023-12-04 19:00:11,447 - INFO - 2023-12-04 18:59:59:EGLDUSDT:SHORT:
+(open=50.0, high=53.79, low=49.72, close=50.91, timeframe="4h",(volumne=1091770.0, avg_volume=34929.77, volume_ratio=31.3)
+
+fut_avg:  43515.34
+spot_avg: 183830.99

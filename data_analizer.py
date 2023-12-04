@@ -38,12 +38,30 @@ def store_rec_id(filename, rec_id):
 def main():
     spot_avg_volumes = load_avg_volume_params(SPOT_AVG_VOLUMES_FILE)
     fut_avg_volumes = load_avg_volume_params(FUT_AVG_VOLUMES_FILE)
+    spot_avg_volumes_file_update_time = os.path.getmtime(SPOT_AVG_VOLUMES_FILE)# remember last update time
+    fut_avg_volumes_file_update_time = os.path.getmtime(FUT_AVG_VOLUMES_FILE)# remember last update time
+
+
 
 
     hammer = HammerPattern()
     big_candle = BigCandlePattern()
 
     while True:
+        #check files for update
+        if spot_avg_volumes_file_update_time != os.path.getmtime(SPOT_AVG_VOLUMES_FILE):
+            print("spot avg volume updating...")
+            spot_avg_volumes = load_avg_volume_params(SPOT_AVG_VOLUMES_FILE)
+            if spot_avg_volumes is not None:
+                spot_avg_volumes_file_update_time = os.path.getmtime(SPOT_AVG_VOLUMES_FILE)  # remember last update time
+
+        if fut_avg_volumes_file_update_time != os.path.getmtime(FUT_AVG_VOLUMES_FILE):
+            print("fut avg volume updating...")
+            fut_avg_volumes = load_avg_volume_params(FUT_AVG_VOLUMES_FILE)
+            if fut_avg_volumes is not None:
+                fut_avg_volumes_file_update_time = os.path.getmtime(FUT_AVG_VOLUMES_FILE)  # remember last update time
+
+
         for timeframe in TIMEFRAMES:
             last_spot_rec_id = load_last_rec_id(f'data/spot_{timeframe}_rec_id.txt')
             last_fut_rec_id = load_last_rec_id(f'data/fut_{timeframe}_rec_id.txt')
